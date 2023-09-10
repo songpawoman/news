@@ -1,4 +1,9 @@
+<%@page import="org.sp.news.domain.News"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%
+	List<News> newsList=(List)request.getAttribute("newsList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,14 +50,16 @@ $(function(){
 			<th>작성일</th>
 			<th>조회수</th>
 		</tr>
+		<%for(int i=0;i<newsList.size();i++){ %>
+		<%News news=newsList.get(i); %>
 		<tr>
 			<td>Jill</td>
-			<td>Smith</td>
-			<td>50</td>
-			<td>50</td>
-			<td>50</td>
+			<td><a href="/news/content?news_idx=<%=news.getNews_idx()%>"><%=news.getTitle() %></a></td>
+			<td><%=news.getWriter() %></td>
+			<td><%=news.getRegdate() %></td>
+			<td><%=news.getHit() %></td>
 		</tr>
-		
+		<%} %>
 		<tr>
 			<td colspan="5"><button>글등록</button></td>
 		</tr>

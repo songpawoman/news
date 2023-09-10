@@ -3,4 +3,27 @@
 <mapper namespace="News">
 	
 	
+	<insert id="insert" parameterType="News">
+		insert into news(news_idx, title, writer, content) values(seq_news.nextval, #{title}, #{writer},#{content})
+	</insert>
+	
+	<select id="selectAll" resultType="News">
+		select * from news order by news_idx desc
+	</select>
+	
+	<select id="select" parameterType="int" resultType="News">
+		select * from news where news_idx=#{news_idx}
+	</select>
+	
+	<update id="update" parameterType="News">
+		update  news  set title=#{title}, writer=#{writer}, content=#{content} 
+		where news_idx=#{news_idx}
+	</update>	
+	
+	<delete id="delete" parameterType="int">
+		delete news where news_idx=#{news_idx}
+	</delete>
+	
 </mapper>
+
+
