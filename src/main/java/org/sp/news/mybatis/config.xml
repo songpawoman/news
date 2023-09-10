@@ -4,10 +4,12 @@
   "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias type="org.sp.news.domain.News" alias="News"/>
+		<typeAlias type="org.sp.news.domain.News" 				alias="News"/>
+		<typeAlias type="org.sp.news.domain.Comments" 		alias="Comments"/>
 	</typeAliases>
 		
 	<mappers>
 		<mapper resource="org/sp/news/mybatis/NewsMapper.xml" />
+		<mapper resource="org/sp/news/mybatis/CommentsMapper.xml" />
 	</mappers>
 </configuration>

@@ -118,6 +118,19 @@ function del(){
 }
 
 
+function getCommentsList(){
+	//비동기 방식으로 서버로부터 코멘트 데이터 가져오기 
+	$.ajax({
+		url:"/comments/list",
+		type:"GET", 
+		success:function(result, status, xhr){  //서버가 200(성공)으로 응답할 경우 success 동작함
+			console.log("서버로부터 받은 결과는 ", result);
+			
+			let row = new Row(result, "batman", "2023-09-15");			
+		}		
+	});
+}
+
 $(function(){
 	$('#content').summernote();	
 	
@@ -138,6 +151,28 @@ $(function(){
 	//목록 이벤트
 	$("#bt_list").click(function(){
 		location.href="/news/list";
+	});
+
+	//댓글의 목록 가져오기(비동기 방식으로)
+	//getCommentsList();
+	
+	//댓글 등록 
+	$("#bt_regist").click(function(){
+		//비동방식으로 서버에 글 등록 요청을 하겠슴...
+		$.ajax({
+			url:"/comments/regist",
+			type:"post",
+			data:{
+				"news.news_idx":$("input[name='news_idx']").val(),
+				"msg":$("input[name='msg']").val(), 
+				"cwriter":$("input[name='cwriter']").val()
+			}, 
+			success:function(result, status, xhr){
+				console.log("등록 후 서버의 응답 ", result);
+				//서버가 보낸 메시지가 ok 라면... 곧 바로 비동기 방식으로 서버로부터 list를 가져오기 
+				getCommentsList();
+			}
+		});
 	});
 	
 	
