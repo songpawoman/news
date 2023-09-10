@@ -1,8 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	
+	xsi:schemaLocation="
+	http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/jee https://www.springframework.org/schema/jee/spring-jee.xsd
+	http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+	">
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
-		
+	
+	<!-- 스프링이 db 커넥션을 취득 따라서 JNDI 에서 풀을 가져오는 역할을 스프링... -->
+	<jee:jndi-lookup id="dataSource" jndi-name="jndi/news" resource-ref="true"/>	
+	
+	<!-- 기술에 따른 트랜잭션 처리자 등록  -->
+	<bean id="transactionManager" 
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		p:dataSource-ref="dataSource"/>
+	
+	<!-- Mybatis에서의 SqlSessionFactory 는 Mybatis Spring 에서 SqlSessionnFactoryBean -->
+	<bean id="sqlSessionFactoryBean" 
+		class="org.mybatis.spring.SqlSessionFactoryBean" 
+		p:dataSource-ref="dataSource"
+		p:configLocation="classpath:org/sp/news/mybatis/config.xml"/>
+
+	<!-- SqlSessionFactoryBean 에서 SqlSessionTemplate 꺼내기 -->	
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate" >
+		<constructor-arg ref="sqlSessionFactoryBean"/>
+	</bean>		
+	
+	<!-- 모델 영역의 객체들을 등록 -->
+	<context:component-scan base-package="org.sp.news.model"/>	
+			
 </beans>
+
+
+
+
+
+
+

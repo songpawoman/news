@@ -20,6 +20,16 @@ tr:nth-child(even) {
 	background-color: #f2f2f2;
 }
 </style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("button").click(function(){
+		location.href="/news/registform";
+	});		
+});
+
+</script>
 </head>
 <body>
 
@@ -29,25 +39,30 @@ tr:nth-child(even) {
 
 	<table>
 		<tr>
-			<th>First Name</th>
-			<th>Last Name</th>
-			<th>Points</th>
+			<th>No</th>
+			<th>뉴스제목</th>
+			<th>작성자</th>
+			<th>작성일</th>
+			<th>조회수</th>
 		</tr>
 		<tr>
 			<td>Jill</td>
 			<td>Smith</td>
 			<td>50</td>
+			<td>50</td>
+			<td>50</td>
 		</tr>
+		
 		<tr>
-			<td>Eve</td>
-			<td>Jackson</td>
-			<td>94</td>
+			<td colspan="5"><button>글등록</button></td>
 		</tr>
+		
 		<tr>
-			<td>Adam</td>
-			<td>Johnson</td>
-			<td>67</td>
+			<td colspan="5">
+				[1][2]
+			</td>
 		</tr>
+		
 	</table>
 
 </body>
