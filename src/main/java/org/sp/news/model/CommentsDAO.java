@@ -7,6 +7,7 @@ import org.sp.news.domain.Comments;
 public interface CommentsDAO {
 
 	public void insert(Comments comments);
-	public List selectAll();
+	public List selectAll(int news_idx);
+	public void deleteByNewsIdx(int news_idx);
 	
 }

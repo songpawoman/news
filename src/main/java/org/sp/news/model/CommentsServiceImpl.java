@@ -18,8 +18,11 @@ public class CommentsServiceImpl implements CommentsService{
 	}
 
 	@Override
-	public List selectAll() {
-		return commentsDAO.selectAll();
+	public List selectAll(int news_idx) {
+		return commentsDAO.selectAll(news_idx);
 	}
-	
+	@Override
+	public void deleteByNewsIdx(int news_idx) throws CommentsException{
+		commentsDAO.deleteByNewsIdx(news_idx);		
+	}
 }

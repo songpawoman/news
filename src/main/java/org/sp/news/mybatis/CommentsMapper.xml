@@ -1,22 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Comments">
-	
-	<!--  글 등록-->
+
+	<!-- 글 등록 -->
 	<insert id="insert" parameterType="Comments">
-		insert into comments(comments_idx, news_idx , msg, cwriter)
+		insert into
+		comments(comments_idx, news_idx , msg, cwriter)
 		values(seq_comments.nextval, #{news.news_idx}, #{msg}, #{cwriter})
 	</insert>
 
-	<!--  글목록 -->
-	 <select id="selectAll" resultType="Comments">
-	 	select * from comments order by comments_idx asc
-	 </select>	
-	 
-	<!-- 뉴스소속된 댓글 가져오기 -->
-	<select id="selectByNewsIdx" parameterType="int" resultType="Comments">
+	<!-- 글목록 -->
+	<select id="selectAll" resultType="Comments" parameterType="int">
 		select * from comments where news_idx=#{news_idx}
-	</select>	 
+		order by comments_idx asc
+	</select>
+
+	<!-- 뉴스소속된 댓글 가져오기 부모의 collection 에서 호출하기 위함 -->
+	<select id="selectByNewsIdx" parameterType="int"
+		resultType="Comments">
+		select * from comments where news_idx=#{news_idx}
+	</select>
+
+	<!-- 뉴스기사에 딸려 있는 댓글 모두 삭제 -->
+	<delete id="deleteByNewsIdx" parameterType="int">
+		delete from comments where news_idx=#{news_idx}
+	</delete>
 	
+
 </mapper>
 

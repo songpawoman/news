@@ -121,7 +121,7 @@ function del(){
 function getCommentsList(){
 	//비동기 방식으로 서버로부터 코멘트 데이터 가져오기 
 	$.ajax({
-		url:"/comments/list",
+		url:"/comments/list?news_idx="+$("input[name='news_idx']").val(),
 		type:"GET", 
 		success:function(result, status, xhr){  //서버가 200(성공)으로 응답할 경우 success 동작함
 			console.log("서버로부터 받은 결과는 ", result);

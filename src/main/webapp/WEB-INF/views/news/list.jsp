@@ -54,9 +54,13 @@ $(function(){
 		<%News news=newsList.get(i); %>
 		<tr>
 			<td>Jill</td>
-			<td><a href="/news/content?news_idx=<%=news.getNews_idx()%>"><%=news.getTitle() %></a>[ <%=news.getCommentsList().size() %> ]</td>
+			<td><a href="/news/content?news_idx=<%=news.getNews_idx()%>"><%=news.getTitle() %></a>
+			 <%if(news.getCommentsList().size() > 0){%>
+			 	[ <%=news.getCommentsList().size() %> ]
+			 <%} %>
+			 </td>
 			<td><%=news.getWriter() %></td>
-			<td><%=news.getRegdate() %></td>
+			<td><%=news.getRegdate().substring(0, 10) %></td>
 			<td><%=news.getHit() %></td>
 		</tr>
 		<%} %>

@@ -25,12 +25,12 @@ public class CommentsController {
 	//게시물 목록 요청 
 	@GetMapping("/comments/list")
 	@ResponseBody
-	public List<Comments> getList() {
+	public List<Comments> getList(int news_idx) {
 		//반환값이 ModelAndView 이거나 String 이면,  InternalResourceViewResolver 가 동작하여 
 		//접두어와 접미어를 조합하여  jsp명을 반환
 		//이때 ResponseBody 어노테이션을 적용하면, ViewResolver가 동작하지 않게 됨
 		//3단계 : 리스트 가져오기 
-		List commentsList = commentsService.selectAll();
+		List commentsList = commentsService.selectAll(news_idx);
 		
 		//java의 List를 자동으로 String json 문자열로 변환하려면, 원래 GSON 같은 외부 라이브러리 들이 필요하다..
 		//하지만, 스프링에서는 이 GSON을 사용하지 않아도 내부적으로 json 문자열로 자동 변환하는 기능을 지원..

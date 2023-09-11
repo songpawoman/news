@@ -21,8 +21,15 @@ public class MybatisCommentsDAO implements CommentsDAO{
 	}
 
 	@Override
-	public List selectAll() {
-		return sqlSessionTemplate.selectList("Comments.selectAll");
+	public List selectAll(int news_idx) {
+		return sqlSessionTemplate.selectList("Comments.selectAll", news_idx);
 	}
 	
+	@Override
+	public void deleteByNewsIdx(int news_idx) throws CommentsException{
+		int result = sqlSessionTemplate.delete("Comments.deleteByNewsIdx", news_idx);
+		if(result <1) {
+			throw new CommentsException("댓글 삭제 실패");
+		}
+	}
 }
