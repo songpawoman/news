@@ -37,7 +37,15 @@
 	
 	<!-- 모델 영역의 객체들을 등록 -->
 	<context:component-scan base-package="org.sp.news.model"/>	
-			
+
+	<!-- json 변환기 등록 -->
+	<bean id="mappingJackson2HttpMessageConverter" 
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<value>application/json;charset=utf-8</value>
+		</property>
+	</bean>			
+	
 </beans>
 
 

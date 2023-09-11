@@ -13,5 +13,10 @@
 	 	select * from comments order by comments_idx asc
 	 </select>	
 	 
+	<!-- 뉴스소속된 댓글 가져오기 -->
+	<select id="selectByNewsIdx" parameterType="int" resultType="Comments">
+		select * from comments where news_idx=#{news_idx}
+	</select>	 
+	
 </mapper>
 

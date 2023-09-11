@@ -7,7 +7,18 @@
 		insert into news(news_idx, title, writer, content) values(seq_news.nextval, #{title}, #{writer},#{content})
 	</insert>
 	
-	<select id="selectAll" resultType="News">
+	<resultMap type="News" id="newsMap">
+		<id column="news_idx" property="news_idx"/>
+		<result column="title" property="title"/>
+		<result column="writer" property="writer"/>
+		<result column="regdate" property="regdate"/>
+		<result column="hit" property="hit"/>
+		<result column="content" property="content"/>
+		<collection column="news_idx" javaType="java.util.List" 
+			ofType="Comments" property="commentsList" select="Comments.selectByNewsIdx"/>
+	</resultMap>
+	
+	<select id="selectAll" resultMap="newsMap">
 		select * from news order by news_idx desc
 	</select>
 	

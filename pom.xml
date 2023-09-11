@@ -15,6 +15,13 @@
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
 	<dependencies>
+		<!-- Java 의 객체를 json 문자열로 자동변환, Json을 Java 객체로도 변환 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.11.4</version>
+		</dependency>
+
 		<!-- oracle jdbc -->
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>

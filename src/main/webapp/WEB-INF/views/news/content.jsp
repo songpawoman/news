@@ -126,7 +126,12 @@ function getCommentsList(){
 		success:function(result, status, xhr){  //서버가 200(성공)으로 응답할 경우 success 동작함
 			console.log("서버로부터 받은 결과는 ", result);
 			
-			let row = new Row(result, "batman", "2023-09-15");			
+			//기존에 reply_area에 추가된 자식들을 싹 지우고~~for 문 실행 
+			$("#reply_area").empty();//모든 자식 요소 삭제 
+			
+			for(let i=0;i<result.length;i++){
+				let row = new Row(result[i].msg, result[i].cwriter, result[i].cregdate);
+			}
 		}		
 	});
 }
@@ -154,7 +159,7 @@ $(function(){
 	});
 
 	//댓글의 목록 가져오기(비동기 방식으로)
-	//getCommentsList();
+	getCommentsList();
 	
 	//댓글 등록 
 	$("#bt_regist").click(function(){
