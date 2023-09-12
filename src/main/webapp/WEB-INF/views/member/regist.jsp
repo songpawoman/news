@@ -1,4 +1,9 @@
+<%@page import="org.sp.news.domain.Hobby"%>
+<%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%
+	List<Hobby> hobbyList=(List)request.getAttribute("hobbyList");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -44,25 +49,19 @@ input[type=button]:hover {
 
 <script type="text/javascript">
 	function regist() {
-		//동기방식으로 전송 
+		//회원가입을 비동기로 요청하자
 		$("form").attr({
-			action : "/news/regist",
-			method : "post"
+			action:"/member/regist",
+			method:"post"
 		});
 		$("form").submit();
 	}
 
 	$(function() {
-		$('#content').summernote();
 
 		//등록버튼 이벤트 
 		$("#bt_regist").click(function() {
 			regist();
-		});
-
-		//목록 이벤트
-		$("#bt_list").click(function() {
-			location.href = "/news/list";
 		});
 
 	});
@@ -75,33 +74,34 @@ input[type=button]:hover {
 	<div class="container">
 		<form>
 			<div>
-				<input type="text" name="firstname" placeholder="Your ID..">
+				<input type="text" name="id" placeholder="Your ID..">
 			</div>
 			<div> 
-				<input type="text" name="firstname" placeholder="Your Password..">
+				<input type="text" name="pass" placeholder="Your Password..">
 			</div> 
 			<div> 
-				<input type="text" name="firstname" placeholder="Your Name..">
+				<input type="text" name="name" placeholder="Your Name..">
+			</div> 
+			<div>
+				<%for(Hobby hobby : hobbyList){ %> 
+					<%=hobby.getHobby_name() %><input type="checkbox" 	name="hobby_idx" value="<%=hobby.getHobby_idx()%>">
+				<%} %>
+
 			</div> 
 			<div> 
-				여행<input type="checkbox" name="firstname" placeholder="Your Name..">
-				프로그래밍<input type="checkbox" name="firstname" placeholder="Your Name..">
-				운동<input type="checkbox" name="firstname" placeholder="Your Name..">
-				독서<input type="checkbox" name="firstname" placeholder="Your Name..">
+				수신동의<input type="radio" name="agree" value="1">
+				수신거부<input type="radio" name="agree" value="0">
 			</div> 
 			<div> 
-				수신동의<input type="radio" name="firstname" placeholder="Your Name..">
-				수신거부<input type="radio" name="firstname" placeholder="Your Name..">
-			</div> 
-			<div> 
-				<select name="">
-					<option>gmail.com</option>
-					<option>naver.com</option>
-					<option>daum.net</option>
+				<input type="text" name="email_id" placeholder="Your Email ID..">
+				<select name="email_server">
+					<option value="gmail.com">gmail.com</option>
+					<option value="naver.com">naver.com</option>
+					<option value="daum.net">daum.net</option>
 				</select>
 			</div> 
 			<div> 
-				<input type="button" value="가입하기">
+				<input type="button" value="가입하기" id="bt_regist">
 			</div> 
 		</form>
 	</div>

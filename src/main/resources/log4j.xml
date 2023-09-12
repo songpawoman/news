@@ -9,7 +9,12 @@
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
+	<!--  
+	log4j 는 로그 관리 라이브러리  
 	
+	심각도에 따라 로그 출력 레벨의 수준을 분류
+	trace  < debug < info < warn < error < fatal 
+	-->
 	<!-- Application Loggers -->
 	<logger name="org.sp.news">
 		<level value="info" />

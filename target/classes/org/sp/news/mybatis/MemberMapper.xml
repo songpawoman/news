@@ -9,7 +9,12 @@
 	<!--가입  -->
 	<insert id="insert" parameterType="Member">
 		insert into member(member_idx, id, pass, name, email, agree)
-		values(seq_member.nextval, #{id},#{pass},#{name},#{email},#{agree})		
+		values(seq_member.nextval, #{id},#{pass},#{name},#{email},#{agree})
+		
+		<!-- 회원 등록과 동시에 발생한 시퀀스 값을  Member DTO의 member_idx에 채워넣기 -->
+		<selectKey keyColumn="member_idx" keyProperty="member_idx" order="AFTER" resultType="int">
+			select seq_member.currval as member_idx from dual
+		</selectKey>
 	</insert>
 	
 	<select id="select" parameterType="Member" resultType="Member">
