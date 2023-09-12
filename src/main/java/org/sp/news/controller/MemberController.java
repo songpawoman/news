@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sp.news.domain.Member;
+import org.sp.news.exception.EmailException;
 import org.sp.news.exception.MemberException;
 import org.sp.news.exception.UserHobbyException;
 import org.sp.news.model.member.HobbyService;
@@ -14,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -26,6 +29,15 @@ public class MemberController {
 	
 	@Autowired
 	private HobbyService hobbyService;
+	
+	
+	//메인요청 처리
+	@GetMapping("/")
+	public ModelAndView main() {
+		ModelAndView mav = new ModelAndView("index");
+		
+		return mav;
+	}
 	
 	//회원가입 양식 요청 
 	@GetMapping("/member/registform")
@@ -44,8 +56,12 @@ public class MemberController {
 	@GetMapping("/member/loginform")
 	public ModelAndView getLoginForm() {
 		ModelAndView mav = new ModelAndView("member/login");
+		
 		return mav;
 	}
+	
+	
+	
 	
 	//가입요청 처리 
 	@PostMapping("/member/regist")
@@ -74,6 +90,13 @@ public class MemberController {
 	
 	@ExceptionHandler(UserHobbyException.class)
 	public ModelAndView handle(UserHobbyException e) {
+		ModelAndView mav = new ModelAndView("error/result");
+		mav.addObject("e", e);
+		return mav;
+	}
+	
+	@ExceptionHandler(EmailException.class)
+	public ModelAndView handle(EmailException e) {
 		ModelAndView mav = new ModelAndView("error/result");
 		mav.addObject("e", e);
 		return mav;
