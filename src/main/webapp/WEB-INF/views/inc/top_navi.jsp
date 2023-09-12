@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <div class="topnav" id="myTopnav">
-	<a href="#home" class="active">Home</a> 
+	<a href="/" class="active">Home</a> 
 	<a href="/news/list">News</a> 
 	<a href="/member/loginform">Login</a> 
 	<a href="/member/registform">Register</a> 

@@ -2,6 +2,8 @@ package org.sp.news.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.sp.news.domain.News;
 import org.sp.news.exception.NewsException;
 import org.sp.news.model.news.NewsService;
@@ -20,7 +22,7 @@ public class NewsController {
 	
 	
 	@GetMapping("/news/list")
-	public ModelAndView getList() {
+	public ModelAndView getList(HttpServletRequest request) {
 		//3단계:
 		List newsList = newsService.selectAll();
 		
@@ -32,7 +34,7 @@ public class NewsController {
 	}
 	
 	@GetMapping("/news/registform")
-	public ModelAndView getForm() {
+	public ModelAndView getForm(HttpServletRequest request) {
 		
 		ModelAndView mav = new ModelAndView("news/regist");
 		return mav;
@@ -40,7 +42,7 @@ public class NewsController {
 	
 	//글등록 
 	@PostMapping("/news/regist")
-	public ModelAndView regist(News news) {
+	public ModelAndView regist(News news, HttpServletRequest request) {
 		//3단계: 오라클에 넣기 
 		newsService.insert(news);
 		
@@ -51,7 +53,7 @@ public class NewsController {
 	
 	//게시물 한건 보기 요청 
 	@GetMapping("/news/content")
-	public ModelAndView getContent(int news_idx) {
+	public ModelAndView getContent(int news_idx, HttpServletRequest request) {
 		//3단계: 한건 가져오기 
 		News news=newsService.select(news_idx);
 		
@@ -64,7 +66,7 @@ public class NewsController {
 	
 	//한건 수정요청 
 	@PostMapping("/news/edit")
-	public ModelAndView edit(News news) {
+	public ModelAndView edit(News news, HttpServletRequest request) {
 		//3단계: 글 수정 
 		newsService.update(news);
 		
@@ -76,7 +78,7 @@ public class NewsController {
 	
 	//한건 삭제 
 	@PostMapping("/news/del")
-	public ModelAndView del(int news_idx) {
+	public ModelAndView del(int news_idx, HttpServletRequest request) {
 		//3단계:삭제 
 		newsService.delete(news_idx);
 		

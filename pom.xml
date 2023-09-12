@@ -16,6 +16,13 @@
 	</properties>
 	<dependencies>
 
+		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.8.14</version>
+			<scope>runtime</scope>
+		</dependency>
 
 		<!-- Java 의 객체를 json 문자열로 자동변환, Json을 Java 객체로도 변환 -->
 		<dependency>

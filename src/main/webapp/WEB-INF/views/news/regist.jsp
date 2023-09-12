@@ -1,15 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@page import="org.sp.news.domain.Member"%>
-<%
-	Member member = (Member)session.getAttribute("member");
-	
-	if(member==null){
-		out.print("<script>");
-		out.print("alert('로그인이 필요한 서비스입니다');");
-		out.print("location.href='/member/loginform';");
-		out.print("</script>");
-	}
-%>
 <!DOCTYPE html>
 <html>
 <head>

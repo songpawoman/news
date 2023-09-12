@@ -2,6 +2,8 @@ package org.sp.news.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sp.news.domain.Member;
@@ -15,8 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -33,7 +33,7 @@ public class MemberController {
 	
 	//메인요청 처리
 	@GetMapping("/")
-	public ModelAndView main() {
+	public ModelAndView main(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("index");
 		
 		return mav;
@@ -41,7 +41,7 @@ public class MemberController {
 	
 	//회원가입 양식 요청 
 	@GetMapping("/member/registform")
-	public ModelAndView getJoinForm() {
+	public ModelAndView getJoinForm(HttpServletRequest request) {
 		//3단계: 취미 가져오기
 		List hobbyList=hobbyService.selectAll();
 		
@@ -54,7 +54,7 @@ public class MemberController {
 	
 	//로그인폼 요청 
 	@GetMapping("/member/loginform")
-	public ModelAndView getLoginForm() {
+	public ModelAndView getLoginForm(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("member/login");
 		
 		return mav;
@@ -65,7 +65,7 @@ public class MemberController {
 	
 	//가입요청 처리 
 	@PostMapping("/member/regist")
-	public ModelAndView regist(Member member, String email_id, String email_server) {
+	public ModelAndView regist(Member member, String email_id, String email_server,HttpServletRequest request) {
 		//아이디, 패스워드, 이름, 이메일, 수신동의,취미 
 		member.setEmail(email_id+"@"+email_server); //zino1187@naver.com
 		

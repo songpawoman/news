@@ -2,16 +2,7 @@
 <%@page import="org.sp.news.domain.News"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
-<%
-	Member member = (Member)session.getAttribute("member");
 
-	if(member==null){
-		out.print("<script>");
-		out.print("alert('로그인이 필요한 서비스입니다');");
-		out.print("location.href='/member/loginform';");
-		out.print("</script>");
-	}
-%>
 <%
 	List<News> newsList = (List) request.getAttribute("newsList");
 %>

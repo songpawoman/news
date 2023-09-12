@@ -3,8 +3,11 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
@@ -23,4 +26,28 @@
 	
 	<context:component-scan base-package="org.sp.news.controller" />
 	
+	<!-- Aspect 등록 -->
+	<beans:bean id="loginExceptionAspect" class="org.sp.news.aop.LoginExceptionAspect"/>
+	<beans:bean id="memberLoginAspect" class="org.sp.news.aop.MemberLoginAspect"/>
+	
+	
+	<!-- AOP 설정 -->
+	<aop:config>
+		<aop:aspect ref="memberLoginAspect">
+			<!-- 지점  
+				aspect가 관여될 수 있는 후보지점을 joinpoint라 하며, joinpoint 중 선택된 joinpoint를 pointcut
+				expression의 표현식은 스프링 자체의 기술이 아니라, AspectJ 라이브러리에 기반한다
+			-->
+			<aop:pointcut expression="execution(public * org.sp.news.controller..*(..))" id="loginPointcut"/>
+			
+			<!-- 시점 -->
+			<aop:around method="loginCheck" pointcut-ref="loginPointcut"/>
+			
+		</aop:aspect>		
+	</aop:config>		
+	
 </beans:beans>
+
+
+
+
