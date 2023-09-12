@@ -2,6 +2,8 @@ package org.sp.news.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.sp.news.domain.News;
 import org.sp.news.exception.NewsException;
 import org.sp.news.model.news.NewsService;
@@ -20,7 +22,7 @@ public class NewsController {
 	
 	
 	@GetMapping("/news/list")
-	public ModelAndView getList() {
+	public ModelAndView getList(HttpServletRequest request) {
 		//3단계:
 		List newsList = newsService.selectAll();
 		
