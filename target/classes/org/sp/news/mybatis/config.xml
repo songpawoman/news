@@ -6,10 +6,17 @@
 	<typeAliases>
 		<typeAlias type="org.sp.news.domain.News" 				alias="News"/>
 		<typeAlias type="org.sp.news.domain.Comments" 		alias="Comments"/>
+		<typeAlias type="org.sp.news.domain.Member" 			alias="Member"/>
+		<typeAlias type="org.sp.news.domain.Hobby" 			alias="Hobby"/>
+		<typeAlias type="org.sp.news.domain.UserHobby" 		alias="UserHobby"/>
 	</typeAliases>
 		
 	<mappers>
 		<mapper resource="org/sp/news/mybatis/NewsMapper.xml" />
 		<mapper resource="org/sp/news/mybatis/CommentsMapper.xml" />
+		<mapper resource="org/sp/news/mybatis/MemberMapper.xml" />
+		<mapper resource="org/sp/news/mybatis/HobbyMapper.xml" />
+		<mapper resource="org/sp/news/mybatis/UserHobbyMapper.xml" />
+		
 	</mappers>
 </configuration>

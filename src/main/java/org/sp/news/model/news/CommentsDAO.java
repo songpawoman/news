@@ -1,4 +1,4 @@
-package org.sp.news.model;
+package org.sp.news.model.news;
 
 import java.util.List;
 

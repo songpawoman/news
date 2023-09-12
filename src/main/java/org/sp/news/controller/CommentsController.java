@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sp.news.domain.Comments;
 import org.sp.news.exception.CommentsException;
-import org.sp.news.model.CommentsService;
+import org.sp.news.model.news.CommentsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
