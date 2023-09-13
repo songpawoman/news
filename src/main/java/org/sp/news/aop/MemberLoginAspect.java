@@ -6,12 +6,16 @@ import javax.servlet.http.HttpSession;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+<<<<<<< HEAD
 import org.sp.news.domain.Member;
+=======
+>>>>>>> zino
 import org.sp.news.exception.MemberException;
 
 public class MemberLoginAspect {
 	private Logger logger=LoggerFactory.getLogger(this.getClass().getName());
 	
+<<<<<<< HEAD
 	//ProceedingJoinPoint 는 원래 호출하려면 타겟 클래스 및 메서드, 매개변수 각종 정보들이 들어있다..
 	public Object loginCheck(ProceedingJoinPoint joinPoint) throws MemberException, Throwable {
 		//1) 클라이언트의 요청을 낚아 챈다 
@@ -31,10 +35,30 @@ public class MemberLoginAspect {
 			if(obj instanceof HttpServletRequest) { 
 				request = (HttpServletRequest)obj;
 			}			
+=======
+	public Object logionCheck(ProceedingJoinPoint joinPoint) throws MemberException, Throwable {
+		Object result=null;
+		
+		//원래 호출하려던 컨트롤러의 메서드를 낚아 챈다.
+		String targetName = joinPoint.getTarget().getClass().getName();
+		String methodName = joinPoint.getSignature().getName();
+		logger.info("원래 호출하려면 메서드는 : "+targetName+"클래스의 "+methodName);
+		
+		//컨트롤러의 메서드에서 HttpServletRequest 를 통해 세션에 Member가 들어있는지 조사한다
+		HttpServletRequest request=null;
+		
+		Object[] args = joinPoint.getArgs();
+		
+		for(Object obj : args) {
+			if(obj instanceof HttpServletRequest) {
+				request = (HttpServletRequest)obj;
+			}
+>>>>>>> zino
 		}
 		
 		String uri = request.getRequestURI();
 		
+<<<<<<< HEAD
 		if(
 			uri.equals("/") || 								//메인페이지 요청		
 			uri.equals("/member/loginform") ||  	//로그인폼 요청
@@ -59,8 +83,31 @@ public class MemberLoginAspect {
 		
 		Object result=joinPoint.proceed(); //원래 호출하려면 메서드 호출
 		
+=======
+		if(true) { //검증하지 않아도 되는 요청 주소일 경우..
+			logger.info("그냥 통과영역");
+			result=joinPoint.proceed();
+		}else {
+			HttpSession session  = request.getSession();
+			
+			if(session.getAttribute("member")==null) {
+				//없으면, 예외발생하여 적절한 예외페이지 보여준다 
+				logger.info("세션 없는거 딸 걸림");
+				throw new MemberException("로그인이 필요한 서비스입니다");
+			}else {
+				//있으면, 원래 가던길 가게한다
+				logger.info("세션 잇으므로 통과");
+				result = joinPoint.proceed();
+			}
+		}
+>>>>>>> zino
 		return result;
 	}
 }
 
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> zino

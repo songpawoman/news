@@ -2,7 +2,10 @@
 <%@page import="org.sp.news.domain.News"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<<<<<<< HEAD
 
+=======
+>>>>>>> zino
 <%
 	List<News> newsList = (List) request.getAttribute("newsList");
 %>
