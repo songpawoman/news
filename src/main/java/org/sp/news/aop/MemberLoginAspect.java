@@ -36,9 +36,11 @@ public class MemberLoginAspect {
 		String uri = request.getRequestURI();
 		
 		if(
-			uri.equals("/") || 
-			uri.equals("/member/loginform") || 
-			uri.equals("/member/registform")) 
+			uri.equals("/") || 								//메인페이지 요청		
+			uri.equals("/member/loginform") ||  	//로그인폼 요청
+			uri.equals("/rest/member/login") ||  	//로그인 요청			
+			uri.equals("/member/registform")|| 	//가입폼 요청
+			uri.equals("/member/regist"))    			//가입요청
 		{ //로그인 인증을 판단할 필요가 없는 경우... 웹사이트 메인, 오시는 길, 회사소개..
 			joinPoint.proceed(); //원래 호출하려던 메서드 호출..즉 가던길 가도록..
 		}else { //로그인 검증이 필요한 경우..

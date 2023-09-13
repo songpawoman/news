@@ -2,6 +2,7 @@
 <div class="topnav" id="myTopnav">
 	<a href="/" class="active">Home</a> 
 	<a href="/news/list">News</a> 
+	<a href="/gallery/list">Gallery</a> 
 	<a href="/member/loginform">Login</a> 
 	<a href="/member/registform">Register</a> 
 	<a href="javascript:void(0);" class="icon" onclick="myFunction()"> <i class="fa fa-bars"></i></a>

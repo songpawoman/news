@@ -10,6 +10,8 @@
 		이용에 불편을 드려 죄송합니다.
 		<%RuntimeException e =(RuntimeException)request.getAttribute("e"); %>
 		<%=e.getMessage() %>
+		
+		<a href="/">메인으로 가기</a>		
 	</pre>
 </body>
 </html>
