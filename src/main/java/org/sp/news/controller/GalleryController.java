@@ -37,7 +37,7 @@ public class GalleryController {
 		logger.info("content = "+gallery.getContent());
 		
 		//두개의 photo 중 파일이 채워져 있는 것만 출력 
-		MultipartFile[] photoList=gallery.getPhoto();
+		MultipartFile[] photoList=gallery.getFile();
 		
 		for(MultipartFile photo : photoList) {
 			String filename=photo.getOriginalFilename();

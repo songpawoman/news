@@ -15,7 +15,7 @@ public class Gallery {
 	private String content;
 	
 	//복수개의 업로드 파일을 받는 업로드 컴포넌트 객체 
-	MultipartFile[] photo;
+	MultipartFile[] file;
 	
 }
 

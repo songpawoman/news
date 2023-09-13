@@ -26,7 +26,6 @@
 	
 	<context:component-scan base-package="org.sp.news.controller" />
 	
-<<<<<<< HEAD
 	<!-- Aspect 등록 -->
 	<beans:bean id="loginExceptionAspect" class="org.sp.news.aop.LoginExceptionAspect"/>
 	<beans:bean id="memberLoginAspect" class="org.sp.news.aop.MemberLoginAspect"/>
@@ -46,26 +45,8 @@
 			
 		</aop:aspect>		
 	</aop:config>		
-=======
-	<!-- Aspect 등록-->
-	<beans:bean id="memberLoginAspect" class="org.sp.news.aop.MemberLoginAspect"/>
-	
-	<!-- AOP설정 -->
-	<aop:config>
-		<aop:aspect id="loginAspect" ref="memberLoginAspect">
-			<aop:pointcut expression="execution(public * org.sp.news.controller..*(..))" id="loginPointcut"/>
-			<aop:around method="logionCheck" pointcut-ref="loginPointcut"/>
-		</aop:aspect>
-	</aop:config>
->>>>>>> zino
 	
 </beans:beans>
 
 
 
-
-<<<<<<< HEAD
-=======
-
-
->>>>>>> zino

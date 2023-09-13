@@ -59,15 +59,35 @@ a{text-decoration:none;}
 <%@ include file="../inc/header_link.jsp" %>
 
 <script type="text/javascript">
+let imgList=[]; //자바스크립트의 파일객체 배열을 받아 놓을 전역변수 
+
 function regist(){
-	//동기방식으로 전송 
-	$("form").attr({
-		action:"/gallery/regist", 
-		method:"post", 
-		enctype:"multipart/form-data"
+	//form태그만이 폼을 만들수 있는 것은 아님..
+	let formData=new FormData();
+	formData.append("title", $("input[name='title']").val());
+	formData.append("writer", $("input[name='writer']").val());
+	formData.append("content", $("textarea[name='content']").val());
+
+	//파일의 수는 여러개이므로, 파라미터를 배열로 생성
+	for(let i=0;i<imgList.length;i++){
+		let file = imgList[i];
+		formData.append("file", file);
+	}
+	
+	$.ajax({
+		url:"/rest/gallery/regist",
+		type:"post", 
+		data:formData, 
+		processData:false, /* title=제목&writer=지노&  (query string)쿼리스트링화 되는 것 방지 */
+		contentType:false, /* application/x-www-form~~ 방지 */
+		success: function(result, status, xhr){
+			console.log("처리성공",result);
+		},
+		error:function(xhr, status, err){
+			console.log("에러발생",err);
+		}
 	});
 	
-	$("form").submit();
 }
 
 function del(){
@@ -82,7 +102,8 @@ function preview(files){
 		//이미지를 생성해 내자 
 		let reader = new FileReader();	
 		
-		reader.onload=(e)=>{//파일이 모두 읽혀졌다면...
+		//파일이 모두 읽혀졌다면...
+		reader.onload=(e)=>{
 			console.log("readed !!!",  e);
 			//e.target.result;
 			
@@ -118,6 +139,14 @@ $(function(){
 		console.log("유저가 선택한 파일 정보 ", this.files);
 		//파일 정보로 부터 이미지를 얻어서, 화면에 미리보기 구현(시각화)
 		preview(this.files);
+		
+		//imgList에 this.files(읽기전용)에 들어있는 js의 File들을 하나씩 꺼내서 넣어주기
+		imgList=[];
+		
+		for(let i=0; i<this.files.length;i++){
+			let file = this.files[i];
+			imgList.push(file);
+		}
 	});
 	
 });
