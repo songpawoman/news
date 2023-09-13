@@ -94,9 +94,7 @@ function preview(files){
 			tag+="</div>";
 			
 			$("#preview").append(tag);
-			
 		}
-		
 		reader.readAsDataURL(file);//읽어들이고 싶은 파일을 매개변수로 전달 
 	}
 }
