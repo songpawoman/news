@@ -8,6 +8,7 @@ public interface GalleryService {
 
 	//목록, 등록, 수정, 삭제 
 	public List selectAll();
+	public Gallery select(int gallery_idx);
 	public void regist(Gallery gallery, String realpath);
 	public void update(Gallery gallery);
 	public void delete(Gallery gallery);

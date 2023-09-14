@@ -1,10 +1,11 @@
-<%@page import="org.sp.news.domain.Member"%>
+<%@page import="org.sp.news.domain.GalleryImg"%>
+<%@page import="org.sp.news.domain.Gallery"%>
 <%@page import="org.sp.news.domain.News"%>
 <%@page import="java.util.List"%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 
 <%
-	
+	List<Gallery> galleryList =(List)request.getAttribute("galleryList");
 %>
 <!DOCTYPE html>
 <html>
@@ -50,18 +51,19 @@ tr:nth-child(even) {
 			<th>조회수</th>
 		</tr>
 		<%
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < galleryList.size(); i++) {
 		%>
 		<%
-
+			Gallery gallery=galleryList.get(i);
+			GalleryImg galleryImg=gallery.getGalleryImgList().get(0);
 		%>
 		<tr>
 			<td>Jill</td>
-			<td><img src="#" width="35px"></td>
-			<td><a href="/news/content?news_idx=<%%>"><%%></a></td>
-			<td><%%></td>
-			<td><%%></td>
-			<td><%%></td>
+			<td><img src="/static/data/<%=galleryImg.getFilename()%>" width="35px"></td>
+			<td><a href="/gallery/content?gallery_idx=<%=gallery.getGallery_idx()%>"><%=gallery.getTitle()%></a></td>
+			<td><%=gallery.getWriter()%></td>
+			<td><%=gallery.getRegdate()%></td>
+			<td><%=gallery.getHit()%></td>
 		</tr>
 		<%
 			}

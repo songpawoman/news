@@ -3,17 +3,29 @@
 <mapper namespace="Gallery">
 	
 	<!-- 글목록 -->
-	<select id="selectAll" resultType="Gallery">
+	<resultMap type="Gallery" id="galleryMap">
+		<id column="gallery_idx" 		property="gallery_idx"/>
+		<result column="title" 			property="title"/>
+		<result column="writer" 		property="writer"/>
+		<result column="regdate" 		property="regdate"/>
+		<result column="hit" 			property="hit"/>
+		<result column="content" 		property="content"/>
+		
+		<collection column="gallery_idx" property="galleryImgList" javaType="java.util.List" 
+			ofType="GalleryImg" select="GalleryImg.selectByGalleryIdx"/>
+		
+	</resultMap>
+	<select id="selectAll" resultMap="galleryMap">
 		select * from gallery order by gallery_idx desc
 	</select>
 
 	<!-- 글한건  -->
-	<select id="select" parameterType="int" resultType="Gallery">
+	<select id="select" parameterType="int" resultMap="galleryMap">
 		select * from gallery where gallery_idx=#{gallery_idx}
 	</select>
 	
 	
-	<!-- 글한건 가져오되 부모인 자식인 GalleryImgMapper에서 호출할 용도 -->
+	<!-- 글한건 가져오되 자식인 GalleryImgMapper에서 호출할 용도 -->
 	<select id="selectByGalleryIdx" parameterType="int" resultType="Gallery">
 		select * from gallery where gallery_idx=#{gallery_idx}	
 	</select>

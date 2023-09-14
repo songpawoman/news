@@ -11,7 +11,8 @@
 	<resultMap type="GalleryImg" id="galleryImgMap">
 		<id column="gallery_img_idx" property="gallery_img_idx"/>
 		<result column="filename" property="filename"/>
-		<association column="gallery_idx" property="gallery" javaType="Gallery"  
+		
+		<association column="gallery_idx" property="gallery" javaType="Gallery" 
 			select="Gallery.selectByGalleryIdx"/>
 	</resultMap>
 		

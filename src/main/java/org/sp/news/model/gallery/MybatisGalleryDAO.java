@@ -17,14 +17,12 @@ public class MybatisGalleryDAO implements GalleryDAO{
 	
 	@Override
 	public List selectAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSessionTemplate.selectList("Gallery.selectAll");
 	}
 
 	@Override
 	public Gallery select(int gallery_idx) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSessionTemplate.selectOne("Gallery.select", gallery_idx);
 	}
 
 	@Override
