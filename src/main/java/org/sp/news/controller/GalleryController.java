@@ -1,10 +1,14 @@
 package org.sp.news.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.sp.news.domain.Gallery;
+import org.sp.news.domain.GalleryImg;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,11 +43,6 @@ public class GalleryController {
 		//두개의 photo 중 파일이 채워져 있는 것만 출력 
 		MultipartFile[] photoList=gallery.getFile();
 		
-		for(MultipartFile photo : photoList) {
-			String filename=photo.getOriginalFilename();
-			
-			logger.info("filename = "+filename);
-		}
 		
 		
 		return null;
