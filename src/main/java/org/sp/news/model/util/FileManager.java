@@ -56,7 +56,22 @@ public class FileManager {
 		return time+"."+ext;
 	}
 	
+	//파일삭제 
+	public void removeFile(Gallery gallery, String realpath) throws FileException{
+
+		for(GalleryImg img : gallery.getGalleryImgList()) {
+			File file = new File(realpath, img.getFilename());
+			if(file.delete()==false) {
+				throw new FileException("파일 삭제실패");
+			} 
+		}
+	}
+	
 }
+
+
+
+
 
 
 

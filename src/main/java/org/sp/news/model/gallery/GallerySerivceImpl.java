@@ -53,10 +53,29 @@ public class GallerySerivceImpl implements GalleryService{
 		}				
 
 	}
-
-	@Override
-	public void update(Gallery gallery) {
-		// TODO Auto-generated method stub
+	
+	//게시물 등록
+	@Transactional(propagation = Propagation.REQUIRED)
+	public void update(Gallery gallery, String realpath) throws FileException, GalleryException, GalleryImgException{
+		
+		//디스크에서 파일 삭제 
+		List galleryImgList=galleryImgDAO.selectByGalleryIdx(gallery.getGallery_idx()); //게시물에 소속된 이미지들 명단
+		gallery.setGalleryImgList(galleryImgList);//겔러리에 대입
+		fileManager.removeFile(gallery, realpath);
+		
+		//기존파일명을 db 삭제... 
+		galleryImgDAO.deleteByGalleryIdx(gallery.getGallery_idx());
+		
+		//파일저장 
+		fileManager.saveFile(gallery, realpath);
+		//saveFile 메서드 실행 후엔, galleryImgList 도 모두 채워져 있슴
+		
+		galleryDAO.update(gallery);
+		
+		for(GalleryImg galleryImg : gallery.getGalleryImgList()) {
+			galleryImg.setGallery(gallery); //gallery_idx가 채워진 Gallery DTO 전달
+			galleryImgDAO.insert(galleryImg);
+		}				
 		
 	}
 

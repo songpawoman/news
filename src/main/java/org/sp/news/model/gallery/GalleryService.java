@@ -10,7 +10,7 @@ public interface GalleryService {
 	public List selectAll();
 	public Gallery select(int gallery_idx);
 	public void regist(Gallery gallery, String realpath);
-	public void update(Gallery gallery);
+	public void update(Gallery gallery, String realpath);
 	public void delete(Gallery gallery);
 	
 }

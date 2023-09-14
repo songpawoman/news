@@ -40,7 +40,6 @@ public class RestGalleryController {
 	
 	
 	//등록 요청 처리 
-	
 	@PostMapping("/rest/gallery/regist")
 	public ResponseEntity regist(Gallery gallery, HttpServletRequest request) {
 		logger.info("title = "+gallery.getTitle());
@@ -55,6 +54,27 @@ public class RestGalleryController {
 		
 		ResponseMessage message = new ResponseMessage();
 		message.setMsg("등록 성공");
+		ResponseEntity<ResponseMessage> entity = new ResponseEntity<ResponseMessage>(HttpStatus.OK);
+		
+		return entity;		
+	}
+	
+	//수정 요청 처리 
+	@PostMapping("/rest/gallery/edit")
+	public ResponseEntity update(Gallery gallery, HttpServletRequest request) {
+		logger.info("title = "+gallery.getTitle());
+		logger.info("writer = "+gallery.getWriter());
+		logger.info("content = "+gallery.getContent());
+		logger.info("gallery_idx = "+gallery.getGallery_idx());
+		
+		//서버의 저장소에 파일 저장
+		ServletContext context=request.getSession().getServletContext();
+		String realpath=context.getRealPath("/resources/data/");
+		
+		galleryService.update(gallery, realpath); 
+		
+		ResponseMessage message = new ResponseMessage();
+		message.setMsg("수정 성공");
 		ResponseEntity<ResponseMessage> entity = new ResponseEntity<ResponseMessage>(HttpStatus.OK);
 		
 		return entity;		

@@ -25,13 +25,15 @@ public class MybatisGalleryImgDAO implements GalleryImgDAO{
 
 	@Override
 	public List selectByGalleryIdx(int gallery_idx) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSessionTemplate.selectList("GalleryImg.selectByGalleryIdx", gallery_idx);
 	}
 
 	@Override
-	public void deleteByGalleryIdx(int gallery_idx) {
-		// TODO Auto-generated method stub
+	public void deleteByGalleryIdx(int gallery_idx) throws GalleryImgException{
+		int result = sqlSessionTemplate.delete("GalleryImg.deleteByGalleryIdx", gallery_idx);
+		if(result < 1) {
+			throw new GalleryImgException("이미지명 삭제에 실패");
+		}
 		
 	}
 	

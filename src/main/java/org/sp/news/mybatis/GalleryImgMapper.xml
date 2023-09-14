@@ -18,7 +18,8 @@
 		
 	<!-- 겔러리 게시물 한건에 소속된 이미지들 가져오기  -->
 	<select id="selectByGalleryIdx" parameterType="int" resultMap="galleryImgMap">
-		select gallery_img_idx, gallery_idx, filename from gallery_img where gallery_idx=#{gallery_idx}
+		select gallery_img_idx, gallery_idx, filename from gallery_img 
+		where gallery_idx=#{gallery_idx}
 	</select>
 	
 	<!-- 겔러리 게시물 한건에 소속된 이미지들 삭제 -->

@@ -108,12 +108,13 @@ class Thumb{
 
 let imgList=[]; //자바스크립트의 파일객체 배열을 받아 놓을 전역변수 
 
-function regist(){
+function edit(){
 	//form태그만이 폼을 만들수 있는 것은 아님..
 	let formData=new FormData();
 	formData.append("title", $("input[name='title']").val());
 	formData.append("writer", $("input[name='writer']").val());
 	formData.append("content", $("textarea[name='content']").val());
+	formData.append("gallery_idx", <%=gallery.getGallery_idx()%>  );
 
 	//파일의 수는 여러개이므로, 파라미터를 배열로 생성
 	for(let i=0;i<imgList.length;i++){
@@ -122,7 +123,7 @@ function regist(){
 	}
 	
 	$.ajax({
-		url:"/rest/gallery/regist",
+		url:"/rest/gallery/edit",
 		type:"POST", 
 		data:formData, 
 		processData:false, /* title=제목&writer=지노&  (query string)쿼리스트링화 되는 것 방지 */
@@ -219,9 +220,9 @@ function createFile(filename){
 $(function(){
 	$('#content').summernote();	
 	
-	//등록버튼 이벤트 
-	$("#bt_regist").click(function(){
-		regist();	
+	//수정버튼 이벤트 
+	$("#bt_edit").click(function(){
+		edit();	
 	});
 	
 	//목록 이벤트
@@ -278,7 +279,9 @@ $(function(){
 				<button type="button" id="bt_trigger">파일을 선택해주세요</button>
 			</p>
 			
-			<input type="button" value="등록" id="bt_regist">
+			<input type="button" value="수정" id="bt_edit">
+			
+			<input type="button" value="삭제" id="bt_del">
 			
 			<input type="button" value="목록" id="bt_list">
 		</form>
