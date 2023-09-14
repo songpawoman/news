@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.sp.news.domain.Gallery;
 import org.sp.news.domain.GalleryImg;
+import org.sp.news.exception.FileException;
 import org.sp.news.exception.GalleryException;
 import org.sp.news.exception.GalleryImgException;
 import org.sp.news.model.util.FileManager;
@@ -32,21 +33,20 @@ public class GallerySerivceImpl implements GalleryService{
 	
 	//게시물 등록
 	@Transactional(propagation = Propagation.REQUIRED)
-	public void regist(Gallery gallery) throws GalleryException, GalleryImgException{
+	public void regist(Gallery gallery, String realpath) throws FileException, GalleryException, GalleryImgException{
+		
+		//파일저장 
+		fileManager.saveFile(gallery, realpath);
+		//saveFile 메서드 실행 후엔, galleryImgList 도 모두 채워져 있슴
 		
 		//insert 수행 전 gallery_idx 0 
 		galleryDAO.insert(gallery);
 		//insert 수행 후 gallery_idx   pk 채워짐
 		
-		List<GalleryImg> galleryImgList = gallery.getGalleryImgList();
-		
-		for(GalleryImg galleryImg : galleryImgList) {
+		for(GalleryImg galleryImg : gallery.getGalleryImgList()) {
 			galleryImg.setGallery(gallery); //gallery_idx가 채워진 Gallery DTO 전달
 			galleryImgDAO.insert(galleryImg);
-		}
-		
-		//파일도 저장 
-		//fileManager.saveFile();		
+		}				
 	}
 
 	@Override

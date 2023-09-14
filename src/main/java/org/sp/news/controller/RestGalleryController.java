@@ -47,43 +47,11 @@ public class RestGalleryController {
 		logger.info("writer = "+gallery.getWriter());
 		logger.info("content = "+gallery.getContent());
 		
-		MultipartFile[] file = gallery.getFile();
-		
-		//Gallery DTO가 보유할 List 생성
-		List galleryImgList = new ArrayList<GalleryImg>();
-		
-		
 		//서버의 저장소에 파일 저장
 		ServletContext context=request.getSession().getServletContext();
 		String realpath=context.getRealPath("/resources/data/");
 		
-		logger.info("realpath : "+realpath);
-		
-		for(MultipartFile photo : file) {
-			String filename=photo.getOriginalFilename(); //원래 파일명
-			
-			filename=fileManager.createFilename(filename); //개발자가 지정한 파일명.. 473284327.jpg
-			
-			GalleryImg galleryImg = new GalleryImg();
-			galleryImg.setFilename(filename);
-			galleryImgList.add(galleryImg);
-			logger.info("filename = "+filename);
-			
-			File f = new File(realpath+filename);
-			
-			try {
-				photo.transferTo(f);
-			} catch (IllegalStateException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		gallery.setGalleryImgList(galleryImgList); //Gallery에 대입
-		
-		galleryService.regist(gallery); 
-		
+		galleryService.regist(gallery, realpath); 
 		
 		ResponseMessage message = new ResponseMessage();
 		message.setMsg("등록 성공");
