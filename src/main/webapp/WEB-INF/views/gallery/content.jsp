@@ -208,6 +208,8 @@ function createFile(filename){
 				//자바스크립에서 File 객체 생성 
 				let file = new File([request.response], filename);
 				imgList.push(file);
+				
+				let thumb = new Thumb(document.getElementById("preview"), file, e);	
 			}
 		}
 		request.send(); //이 시점에 서버에 요청 시작
